@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Japanese-English Quiz</title>
+  <link rel="stylesheet" href="style.css"> <!-- ✅ Link to external CSS -->
+</head>
+
+<body>
+
+<h1>Japanese-English Quiz</h1>
+
+<div id="startScreen" class="active">
+  <button id="startBtn">Start Quiz</button>
+</div>
+
+<div id="quizScreen">
+  <!-- Stats Panel (Level, XP bar, score, combo) -->
+  <div id="statsPanel">
+    <div class="level-section">
+      <div>
+        <strong>Level:</strong> <span id="level">1</span>
+      </div>
+      <div id="xpBarContainer" aria-label="Experience Progress Bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+        <div id="xpBar"></div>
+      </div>
+      <small id="xpText">0 / 10 XP</small>
+    </div>
+    <div>
+      <strong>Score:</strong> <span id="points">0</span> |
+      <strong>Combo:</strong> <span id="combo">0</span>
+    </div>
+  </div>
+
+  <!-- Question Text -->
+  <div id="jpText">月曜日</div>
+  <div id="enText"></div>
+
+  <!-- Answer Input -->
+  <input type="text" id="answerInput" autocomplete="off" placeholder="Type the correct English" />
+  <div id="feedback"></div>
+
+  <!-- Buttons -->
+  <button id="nextBtn" disabled>Next</button>
+  <button id="tryAgainBtn" style="display:none;">Try Again</button>
+</div>
+
+<canvas id="confettiCanvas" style="position:fixed; top:0; left:0; pointer-events:none; z-index:1000;"></canvas>
+
+<script src="script.js"></script>
+</body>
+
+</html>
