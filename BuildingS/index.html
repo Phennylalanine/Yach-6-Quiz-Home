@@ -3,19 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Japanese-English Quiz</title>
+  <title>Building Quiz</title>
   <link rel="stylesheet" href="style.css"> <!-- ✅ Link to external CSS -->
 </head>
 
 <body>
 
-<h1>Japanese-English Quiz</h1>
+<h1>建物クイズ</h1>
 
+<!-- Start Screen -->
 <div id="startScreen" class="active">
   <button id="startBtn">Start Quiz</button>
 </div>
 
-<div id="quizScreen">
+<!-- Quiz Screen -->
+<div id="quizScreen" class="hidden">
   <!-- Stats Panel (Level, XP bar, score, combo) -->
   <div id="statsPanel">
     <div class="level-section">
@@ -41,6 +43,9 @@
   <input type="text" id="answerInput" autocomplete="off" placeholder="Type the correct English" />
   <div id="feedback"></div>
 
+  <!-- Choices -->
+  <div id="choicesText"></div>
+
   <!-- Buttons -->
   <button id="nextBtn" disabled>Next</button>
   <button id="tryAgainBtn" style="display:none;">Try Again</button>
@@ -50,5 +55,4 @@
 
 <script src="script.js"></script>
 </body>
-
 </html>
