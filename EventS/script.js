@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Japanese-English Quiz</title>
+  <title>Event Quiz</title>
   <link rel="stylesheet" href="style.css"> <!-- ✅ Link to external CSS -->
 </head>
 
 <body>
 
-<h1>Japanese-English Quiz</h1>
+<h1>行事クイズ</h1>
 
 <!-- Start Screen -->
 <div id="startScreen" class="active">
