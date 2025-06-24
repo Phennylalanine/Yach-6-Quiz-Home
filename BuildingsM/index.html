@@ -3,32 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Building Quiz</title>
+  <title>Japanese-English Quiz</title>
   <link rel="stylesheet" href="style.css"> <!-- ✅ Link to external CSS -->
 </head>
 
 <body>
-  <h1>建物 Quiz</h1>
+  <h1>Japanese-English Quiz</h1>
 
   <div id="startScreen" class="active">
     <button id="startBtn">Start Quiz</button>
   </div>
 
   <div id="quizScreen">
-    <!-- Stats Panel -->
-    <div id="statsPanel">
-      <div class="level-section">
-        <div>
-          <strong>Level:</strong> <span id="level">1</span>
-        </div>
+    <!-- ✅ Moved Stats Panel to top with new layout -->
+    <div id="topPanel">
+      <div id="levelSection" class="panel-left">
+        <div><strong>Level:</strong> <span id="level">1</span></div>
         <div id="xpBarContainer" aria-label="Experience Progress Bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
           <div id="xpBar"></div>
         </div>
         <small id="xpText">0 / 3 XP</small>
       </div>
-      <div>
-        <strong>Score:</strong> <span id="points">0</span> |
-        <strong>Combo:</strong> <span id="combo">0</span>
+      <div id="scoreSection" class="panel-right">
+        <div><strong>Score:</strong> <span id="points">0</span></div>
+        <div><strong>Combo:</strong> <span id="combo">0</span></div>
       </div>
     </div>
 
