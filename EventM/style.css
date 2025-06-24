@@ -166,26 +166,26 @@ body {
   font-size: 1em;
   color: #4caf50;
   display: flex;
-  flex-wrap: nowrap;          /* No wrapping */
-  justify-content: space-between; /* Spread items out */
+  flex-wrap: wrap;             /* ✅ Allow wrapping */
+  justify-content: center;     /* Center items */
+  gap: 8px 6px;                /* Space between buttons */
   width: 100%;
-  gap: 4px;                   /* Smaller gap if needed */
 }
 
 .choice-option {
-  flex: 1;                    /* Allow equal shrinking */
-  min-width: 0;               /* Allow shrink below content size */
-  padding: 6px 6px;
+  padding: 8px 12px;           /* More padding for readability */
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 6px;
   background: #f9f9f9;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  font-size: 0.9em;           /* Reduce font size if needed */
-  overflow: hidden;
-  text-overflow: ellipsis;   /* Show '...' if too narrow */
-  white-space: nowrap;
+  font-size: 0.95em;
+  white-space: normal;         /* ✅ Allow multi-line */
+  word-break: break-word;      /* ✅ Break long words if needed */
+  max-width: 140px;            /* ✅ Prevent overly wide buttons */
+  flex-shrink: 0;              /* Don't let them shrink too much */
 }
+
 
 .choice-option:hover {
   background-color: #e0f2f1;
