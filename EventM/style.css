@@ -19,6 +19,10 @@ h1 {
   display: block;
 }
 
+#startScreen {
+  display: none;
+}
+
 #startScreen.active {
   display: block;
 }
