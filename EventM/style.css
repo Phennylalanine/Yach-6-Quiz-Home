@@ -166,7 +166,7 @@ body {
   font-size: 1em;
   color: #4caf50;
   display: flex;
-  flex-wrap: wrap;             /* ✅ Allow wrapping */
+  flex-wrap: wrap;             /* Allow wrapping */
   justify-content: center;     /* Center items */
   gap: 8px 6px;                /* Space between buttons */
   width: 100%;
@@ -180,9 +180,9 @@ body {
   background: #f9f9f9;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   font-size: 0.95em;
-  white-space: normal;         /* ✅ Allow multi-line */
-  word-break: break-word;      /* ✅ Break long words if needed */
-  max-width: 140px;            /* ✅ Prevent overly wide buttons */
+  white-space: normal;         /* Allow multi-line */
+  word-break: break-word;      /* Break long words if needed */
+  max-width: 140px;            /* Prevent overly wide buttons */
   flex-shrink: 0;              /* Don't let them shrink too much */
 }
 
