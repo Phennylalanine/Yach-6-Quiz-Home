@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
   overallLevelEl.textContent =
     overallLevel > 0
       ? `Overall Level: ${overallLevel.toFixed(0)}`
-      : "Overall Level: No data yet.";
+      : "Total Level: No data yet.";
 
   // Update each span with class "levelValue" using the data-key attribute
   document.querySelectorAll(".levelValue").forEach((span) => {
