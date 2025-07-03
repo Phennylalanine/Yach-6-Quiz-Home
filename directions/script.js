@@ -236,13 +236,13 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveProgress() {
-    localStorage.setItem("EventSxp", xp);
-    localStorage.setItem("EventSlevel", level);
+    localStorage.setItem("directionsXP", xp);
+    localStorage.setItem("directionsLevel", level);
   }
 
   function loadProgress() {
-    const savedXP = localStorage.getItem("EventSxp");
-    const savedLevel = localStorage.getItem("EventSlevel");
+    const savedXP = localStorage.getItem("directionsXP");
+    const savedLevel = localStorage.getItem("directionsLevel");
 
     if (savedXP !== null) xp = parseInt(savedXP, 10);
     if (savedLevel !== null) level = parseInt(savedLevel, 10);
