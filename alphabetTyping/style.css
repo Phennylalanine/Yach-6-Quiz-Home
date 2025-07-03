@@ -1,0 +1,179 @@
+/* === Base Layout and Font === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f4f4;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === Buttons === */
+button {
+  font-size: 1em;
+  margin: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background-color: #4caf50;
+  color: white;
+  transition: background-color 0.25s ease;
+  user-select: none;
+}
+button:hover {
+  background-color: #388e3c;
+}
+
+/* === Letter Display === */
+#letterDisplay {
+  font-size: 2em;
+  margin: 20px 0;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* === Stats Section === */
+.stats {
+  margin-top: 10px;
+  font-size: 1em;
+  color: #34495e;
+  user-select: none;
+  text-align: center;
+}
+.stats div {
+  margin: 4px 0;
+}
+.stats strong {
+  color: #2c3e50;
+}
+
+/* === XP Bar === */
+.xp-container {
+  width: 300px;
+  height: 20px;
+  background: #ddd;
+  border-radius: 10px;
+  margin: 10px auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.10);
+}
+.xp-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  width: 0;
+  transition: width 0.4s ease-in-out;
+  border-radius: 10px 0 0 10px;
+  box-shadow: inset 0 -2px 6px rgba(0,0,0,0.2);
+}
+.xp-text {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  font-size: 0.9em;
+  line-height: 20px;
+  color: #2e7d32;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* === Keyboard Layout === */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 30px auto;
+  background: #333;
+  padding: 20px;
+  border-radius: 12px;
+  width: fit-content;
+  max-width: 100%;
+}
+.row {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+  justify-content: center;
+}
+.key {
+  background-color: #555;
+  color: white;
+  border-radius: 6px;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 1.1em;
+  user-select: none;
+  min-width: 32px;
+}
+.key.highlight {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+}
+.key.spacer {
+  visibility: hidden;
+}
+
+/* === Floating XP Animation === */
+.floating-xp {
+  position: absolute;
+  color: gold;
+  font-weight: bold;
+  font-size: 1.2em;
+  animation: floatUp 1.5s ease-out forwards;
+}
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+/* === Confetti Canvas === */
+canvas#confettiCanvas {
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+/* === Responsive Layout === */
+@media (max-width: 500px) {
+  .xp-container {
+    width: 90vw;
+    max-width: 300px;
+  }
+  .keyboard {
+    width: 95vw;
+    padding: 10px;
+  }
+}
+
+/* === Game Content Centering === */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+button.level-select.selected {
+  background-color: #2196f3; /* Blue */
+  color: white;
+}
