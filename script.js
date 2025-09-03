@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const quizData = [
     { key: "monthsSlevel", multiplier: 0.6 },
     { key: "EventSlevel", multiplier: 0.6 },
-    { key: "monthsMlevel", multiplier: 1.2 },
+    { key: "monthsMlevel", multiplier: 1.1 },
     { key: "eventsMlevel", multiplier: 1.2 },
     { key: "TypingLevel_Level1", multiplier: 0.2 },
     { key: "TypingLevel_Level2", multiplier: 0.3 },
