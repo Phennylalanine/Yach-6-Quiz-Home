@@ -3,12 +3,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Array of quiz levels with multipliers and keys matching data-key in HTML
   const quizData = [
-    { key: "monthsSlevel", multiplier: 0.6 },
-    { key: "EventSlevel", multiplier: 0.6 },
+    { key: "monthsSlevel", multiplier: 0.3 },
+    { key: "EventSlevel", multiplier: 0.3 },
     { key: "monthsMlevel", multiplier: 1.1 },
     { key: "eventsMlevel", multiplier: 1.2 },
-    { key: "TypingLevel_Level1", multiplier: 0.2 },
-    { key: "TypingLevel_Level2", multiplier: 0.3 },
+    { key: "TypingLevel_Level1", multiplier: 0.1 },
+    { key: "TypingLevel_Level2", multiplier: 0.1 },
   { key: "directionslevel", multiplier: 0.9 },
   ];
 
