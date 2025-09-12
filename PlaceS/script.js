@@ -1,15 +1,15 @@
+// Quiz State Variables
+let currentQuestionIndex = 0;
+let score = 0;
+let combo = 0;
+let level = 1;
+let xp = 0;
+let questions = [];
+let answered = false;
+
+const maxComboForBonus = 5;
+
 window.addEventListener("DOMContentLoaded", () => {
-  // Quiz State Variables
-  let currentQuestionIndex = 0;
-  let score = 0;
-  let combo = 0;
-  let level = 1;
-  let xp = 0;
-  let questions = [];
-  let answered = false;
-
-  const maxComboForBonus = 5;
-
   // DOM Elements
   const jpText = document.getElementById("jpText");
   const enText = document.getElementById("enText");
@@ -25,12 +25,14 @@ window.addEventListener("DOMContentLoaded", () => {
   const xpBar = document.getElementById("xpBar");
   const xpText = document.getElementById("xpText");
 
+  // Confetti
   const confettiCanvas = document.getElementById("confettiCanvas");
   const ctx = confettiCanvas.getContext("2d");
   let confettiParticles = [];
 
   // Event Listeners
   document.getElementById("startBtn").addEventListener("click", startQuiz);
+
   nextBtn.addEventListener("click", () => {
     if (answered) {
       currentQuestionIndex++;
@@ -50,23 +52,45 @@ window.addEventListener("DOMContentLoaded", () => {
 
   tryAgainBtn.addEventListener("click", tryAgain);
 
-  // Load progress
+  // Load saved XP/Level progress
   loadProgress();
 
-  function startQuiz() {
-    document.getElementById("startScreen").classList.remove("active");
-    document.getElementById("quizScreen").classList.add("active");
+  // Load questions
+  fetch("questions.csv")
+    .then((response) => response.text())
+    .then((data) => {
+      questions = parseCSV(data);
+      shuffleArray(questions);
+      // Don't load question yet; wait for start
+    })
+    .catch((err) => {
+      console.error("Failed to load questions.csv:", err);
+    });
 
-    fetch("questions.csv")
-      .then((response) => response.text())
-      .then((data) => {
-        questions = parseCSV(data);
-        shuffleArray(questions);
-        loadNextQuestion();
-      })
-      .catch((err) => {
-        console.error("Failed to load questions.csv:", err);
-      });
+  // Confetti canvas resize and draw loop
+  function resizeCanvas() {
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+  setInterval(drawConfetti, 30);
+
+  // --- Function declarations ---
+
+  function startQuiz() {
+    document.getElementById("quizScreen").classList.add("active");
+    document.getElementById("startScreen").classList.remove("active");
+    // Reset state
+    currentQuestionIndex = 0;
+    score = 0;
+    combo = 0;
+    answered = false;
+    // Optionally reset XP/level here if you want a fresh run each time
+    // xp = 0;
+    // level = 1;
+    updateStats();
+    loadNextQuestion();
   }
 
   function parseCSV(data) {
@@ -78,36 +102,25 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function loadNextQuestion() {
+    if (questions.length === 0) {
+      jpText.textContent = "No questions loaded.";
+      enText.textContent = "";
+      answerInput.disabled = true;
+      nextBtn.disabled = true;
+      tryAgainBtn.style.display = "none";
+      return;
+    }
     if (currentQuestionIndex >= questions.length) {
       currentQuestionIndex = 0;
       shuffleArray(questions);
     }
-
     const question = questions[currentQuestionIndex];
     jpText.textContent = question.jp;
-
+    // Hide English if you want a challenge, or show for easier mode
+    enText.textContent = question.en; // Set to "" if you want to hide answer
     speak(question.en);
 
-    const correctAnswer = question.en;
-    const wrongAnswers = questions.filter(q => q.en !== correctAnswer).map(q => q.en);
-    shuffleArray(wrongAnswers);
-
-    const options = [correctAnswer, ...wrongAnswers.slice(0, 3)];
-    shuffleArray(options);
-
-    choicesContainer.innerHTML = "";
-    options.forEach(opt => {
-      const span = document.createElement("span");
-      span.textContent = opt;
-      span.className = "choice-option";
-      span.style.padding = "5px 10px";
-      span.style.border = "1px solid #ccc";
-      span.style.borderRadius = "5px";
-      span.style.background = "#f9f9f9";
-      span.style.margin = "5px";
-      span.style.userSelect = "none";
-      choicesContainer.appendChild(span);
-    });
+    if (choicesContainer) choicesContainer.innerHTML = "";
 
     answerInput.value = "";
     answerInput.disabled = false;
@@ -160,7 +173,8 @@ window.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      feedback.innerHTML = `✖️ <strong>Wrong!</strong><br>Your answer: <code>${comparison}</code><br>Correct answer: <span style="color: green;">${correctAnswer}</span>`;
+      feedback.innerHTML =
+        `✖️ <strong>Wrong!</strong><br>Your answer: <code>${comparison}</code><br>Correct answer: <span style="color: green;">${correctAnswer}</span>`;
       feedback.style.color = "red";
       combo = 0;
 
@@ -222,13 +236,13 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveProgress() {
-    localStorage.setItem("PlaceSxp", xp);
-    localStorage.setItem("PlaceSlevel", level);
+    localStorage.setItem("EventSxp", xp);
+    localStorage.setItem("EventSlevel", level);
   }
 
   function loadProgress() {
-    const savedXP = localStorage.getItem("PlaceSxp");
-    const savedLevel = localStorage.getItem("PlaceSlevel");
+    const savedXP = localStorage.getItem("EventSxp");
+    const savedLevel = localStorage.getItem("EventSlevel");
 
     if (savedXP !== null) xp = parseInt(savedXP, 10);
     if (savedLevel !== null) level = parseInt(savedLevel, 10);
@@ -244,6 +258,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function speak(text) {
+    if (!text) return;
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "en-UK";
     speechSynthesis.speak(utterance);
@@ -295,13 +310,4 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
-  function resizeCanvas() {
-    confettiCanvas.width = window.innerWidth;
-    confettiCanvas.height = window.innerHeight;
-  }
-
-  window.addEventListener("resize", resizeCanvas);
-  resizeCanvas();
-  setInterval(drawConfetti, 30);
 });
