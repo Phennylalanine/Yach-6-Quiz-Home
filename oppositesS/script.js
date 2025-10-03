@@ -223,13 +223,13 @@ function updateStats() {
 }
 
 function saveProgress() {
-  localStorage.setItem("day_quiz_xp", xp);
-  localStorage.setItem("day_quiz_level", level);
+  localStorage.setItem("oppositeSxp", xp);
+  localStorage.setItem("oppositeSlevel", level);
 }
 
 function loadProgress() {
-  const savedXP = localStorage.getItem("day_quiz_xp");
-  const savedLevel = localStorage.getItem("day_quiz_level");
+  const savedXP = localStorage.getItem("oppositeSxp");
+  const savedLevel = localStorage.getItem("oppositeSlevel");
 
   if (savedXP !== null) xp = parseInt(savedXP, 10);
   if (savedLevel !== null) level = parseInt(savedLevel, 10);
@@ -304,3 +304,4 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 setInterval(drawConfetti, 30);
+
