@@ -224,12 +224,12 @@ function updateStats() {
 
 function saveProgress() {
   localStorage.setItem("oppositeMxp", xp);
-  localStorage.setItem("oppositeMlevel", level);
+  localStorage.setItem("oppositeMevel", level);
 }
 
 function loadProgress() {
   const savedXP = localStorage.getItem("oppositeMxp");
-  const savedLevel = localStorage.getItem("oppositeMevel");
+  const savedLevel = localStorage.getItem("oppositeMlevel");
 
   if (savedXP !== null) xp = parseInt(savedXP, 10);
   if (savedLevel !== null) level = parseInt(savedLevel, 10);
