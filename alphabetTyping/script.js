@@ -1,4 +1,6 @@
 // --- Game Variables ---
+const MAX_LEVEL = 10; // <-- Set your desired maximum level here
+
 let currentChar = '';
 let currentLevel = 1;
 let revealTimer = null;
@@ -147,20 +149,44 @@ function handleCorrectAnswer() {
 }
 
 function gainXP(amount) {
+  // If already at max level, do nothing
+  if (level >= MAX_LEVEL) {
+    xp = 0; // Optionally lock XP at zero at max level
+    updateStats();
+    saveProgress();
+    return;
+  }
+
   let levelBefore = level;
   xp += amount;
-  while (xp >= xpToNextLevel(level)) {
+
+  // Level up logic with max level cap
+  while (xp >= xpToNextLevel(level) && level < MAX_LEVEL) {
     xp -= xpToNextLevel(level);
     level++;
+    if (level >= MAX_LEVEL) {
+      xp = 0; // No more XP past max level
+      break;
+    }
   }
+
   if (level > levelBefore) {
     triggerConfetti();
   }
+
+  // Ensure level and XP are capped
+  if (level >= MAX_LEVEL) {
+    level = MAX_LEVEL;
+    xp = 0;
+  }
+
   saveProgress();
   updateStats();
 }
 
 function xpToNextLevel(currentLevel) {
+  // If at max level, no more XP needed
+  if (currentLevel >= MAX_LEVEL) return Infinity;
   let xpRequired = 3;
   for (let i = 2; i <= currentLevel; i++) {
     xpRequired += i;
@@ -172,10 +198,17 @@ function updateStats() {
   pointsEl.textContent = score;
   comboEl.textContent = combo;
   levelEl.textContent = level;
-  const needed = xpToNextLevel(level);
-  const percent = (xp / needed) * 100;
+
+  let needed = xpToNextLevel(level);
+  let percent = 0;
+  if (level < MAX_LEVEL) {
+    percent = (xp / needed) * 100;
+    xpText.textContent = `${xp} / ${needed}`;
+  } else {
+    percent = 100;
+    xpText.textContent = `MAX LEVEL`;
+  }
   xpBar.style.width = `${Math.min(percent, 100)}%`;
-  xpText.textContent = `${xp} / ${needed}`;
 }
 
 function speak(text) {
@@ -196,6 +229,12 @@ function loadProgress() {
   const savedLevel = localStorage.getItem(`TypingLevel_Level${currentLevel}`);
   xp = savedXP !== null ? parseInt(savedXP) : 0;
   level = savedLevel !== null ? parseInt(savedLevel) : 1;
+
+  // Enforce max level and XP
+  if (level >= MAX_LEVEL) {
+    level = MAX_LEVEL;
+    xp = 0;
+  }
 }
 
 function showFloatingXP(text) {
