@@ -236,13 +236,13 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveProgress() {
-    localStorage.setItem("EventSxp", xp);
-    localStorage.setItem("EventSlevel", level);
+    localStorage.setItem("eventSxpr", xp);
+    localStorage.setItem("eventSlevelr", level);
   }
 
   function loadProgress() {
-    const savedXP = localStorage.getItem("EventSxp");
-    const savedLevel = localStorage.getItem("EventSlevel");
+    const savedXP = localStorage.getItem("eventSxpr");
+    const savedLevel = localStorage.getItem("eventSlevelr");
 
     if (savedXP !== null) xp = parseInt(savedXP, 10);
     if (savedLevel !== null) level = parseInt(savedLevel, 10);
@@ -311,3 +311,4 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
