@@ -1,0 +1,76 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f0f0f0;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+#overallLevel {
+  font-size: 1.3em;
+  margin: 18px 0;
+  color: #333;
+}
+
+.quiz-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.quiz-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 22px 18px;
+  width: 220px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow .2s;
+}
+
+.quiz-card:hover {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.14);
+}
+
+.quiz-icon {
+  font-size: 2.2em;
+  margin-bottom: 7px;
+}
+
+.quiz-card h3 {
+  margin: 6px 0 10px 0;
+  font-size: 1.15em;
+}
+
+.quiz-card p {
+  margin: 0 0 10px 0;
+  color: #666;
+}
+
+.quiz-card a {
+  margin: 12px 0 4px 0;
+  font-weight: bold;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.quiz-card a:hover {
+  text-decoration: underline;
+}
+
+.levelValue {
+  font-weight: bold;
+  color: #0066cc;
+  margin-left: 4px;
+  margin-top: 6px;
+  font-size: 1em;
+}
