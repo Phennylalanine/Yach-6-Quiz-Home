@@ -222,13 +222,13 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveProgress() {
-    localStorage.setItem("eventMxpr", xp);
-    localStorage.setItem("eventMlevelr", level);
+    localStorage.setItem("buildingMxpr", xp);
+    localStorage.setItem("buildingMlevelr", level);
   }
 
   function loadProgress() {
-    const savedXP = localStorage.getItem("eventMxpr");
-    const savedLevel = localStorage.getItem("eventMlevelr");
+    const savedXP = localStorage.getItem("buildingMxpr");
+    const savedLevel = localStorage.getItem("buildingMlevelr");
 
     if (savedXP !== null) xp = parseInt(savedXP, 10);
     if (savedLevel !== null) level = parseInt(savedLevel, 10);
