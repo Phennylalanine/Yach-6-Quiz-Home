@@ -1,124 +1,126 @@
-<!DOCTYPE ht
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quiz Hub - Total Level</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      background: #f0f0f0;
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 10px;
-    }
-    #overallLevel {
-      font-size: 1.5em;
-      margin: 20px 0;
-      color: #333;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 30px 0 0 0;
-    }
-    li {
-      margin: 10px 0;
-      font-size: 1.2em;
-    }
-    a {
-      text-decoration: none;
-      color: #0066cc;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .levelValue {
-      font-weight: bold;
-      color: #0066cc;
-      margin-left: 8px;
-      font-size: 1em;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Welcome to the Quiz Hub!</h1>
   <p id="overallLevel"></p>
 
-  <ul>
-  <li>
- <a href="https://phennylalanine.github.io/Yach-5-Quiz-Home/alphabetTyping" target="_blank" rel="noopener noreferrer">
-        Alphabet Keyboard Practice - キーボードの練習
-    <span class="levelValue" data-key="TypingLevel_Level1">(Round 1 Level: 0)</span>
- <span class="levelValue" data-key="TypingLevel_Level2">(Round 2 Level: 0)</span>
+  <div class="quiz-grid">
+    <!-- Alphabet Keyboard Practice (Round 1 & 2 levels shown in one card) -->
+    <div class="quiz-card">
+      <div class="quiz-icon">⌨️</div>
+      <h3>Alphabet Keyboard Practice</h3>
+      <p>キーボードの練習</p>
+      <a href="https://phennylalanine.github.io/Yach-5-Quiz-Home/alphabetTyping" target="_blank" rel="noopener noreferrer">
+        Start
       </a>
-</li>
-    
-    <li>
+      <div>
+        <span class="levelValue" data-key="TypingLevel_Level1">(Round 1 Level: 0)</span>
+        <span class="levelValue" data-key="TypingLevel_Level2">(Round 2 Level: 0)</span>
+      </div>
+    </div>
+
+    <!-- Buildings Quiz Cards -->
+    <div class="quiz-card">
+      <div class="quiz-icon">🏛️</div>
+      <h3>Round 1 Buildings Quiz</h3>
+      <p>建物クイズ 第1戦</p>
       <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/BuildingS" target="_blank" rel="noopener noreferrer">
-       Round 1 Buildings Quiz - 建物クイズ第1戦
+        Start
       </a>
       <span class="levelValue" data-key="BuildingSlevel">(Level: 0)</span>
-    </li>
-    <li>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-icon">🏛️</div>
+      <h3>Round 2 Buildings Quiz</h3>
+      <p>建物クイズ 第2戦</p>
       <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/BuildingsM" target="_blank" rel="noopener noreferrer">
-        Round 2 Buildings Quiz - 建物クイズ第2戦
+        Start
       </a>
-      <span class="levelValue" data-key="BuildingSlevel">(Level: 0)</span>
-    </li>
-    <li>
+      <span class="levelValue" data-key="BuildingsMlevel">(Level: 0)</span>
+    </div>
+
+    <!-- Events Quiz Cards -->
+    <div class="quiz-card">
+      <div class="quiz-icon">🎉</div>
+      <h3>Round 1 Events Quiz</h3>
+      <p>行事クイズ 第1戦</p>
       <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/EventS" target="_blank" rel="noopener noreferrer">
-       Round 1 Events Quiz - 行事クイズ第1戦
+        Start
       </a>
       <span class="levelValue" data-key="EventSlevel">(Level: 0)</span>
-    </li>
-    <li>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-icon">🎊</div>
+      <h3>Round 2 Events Quiz</h3>
+      <p>行事クイズ 第2戦</p>
       <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/EventM" target="_blank" rel="noopener noreferrer">
-        Round 2 Events Quiz - 行事クイズ第２戦
+        Start
       </a>
       <span class="levelValue" data-key="EventMlevel">(Level: 0)</span>
-    </li>
-<li>
+    </div>
+
+    <!-- Directions Quiz -->
+    <div class="quiz-card">
+      <div class="quiz-icon">🧭</div>
+      <h3>Directions Quiz</h3>
+      <p>道案内</p>
       <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/directions" target="_blank" rel="noopener noreferrer">
-      Directions Quiz - 道案内
+        Start
       </a>
       <span class="levelValue" data-key="directionslevel">(Level: 0)</span>
-    </li>
-     <li>
+    </div>
+
+    <!-- Places Quiz Cards -->
+    <div class="quiz-card">
+      <div class="quiz-icon">📍</div>
+      <h3>Round 1 Places Quiz</h3>
+      <p>場所クイズ 第1戦</p>
       <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/PlaceS" target="_blank" rel="noopener noreferrer">
-        Round 1 Places Quiz - 場所クイズ第1戦
+        Start
       </a>
       <span class="levelValue" data-key="PlacesSlevel">(Level: 0)</span>
-    </li>
-<li>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-icon">📌</div>
+      <h3>Round 2 Places Quiz</h3>
+      <p>場所クイズ 第2戦</p>
       <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/PlacesM" target="_blank" rel="noopener noreferrer">
-      Places Quiz 2 - 場所クイズ第2戦
+        Start
       </a>
       <span class="levelValue" data-key="PlacesMlevel">(Level: 0)</span>
-    </li>
-     <li>
-      <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/oppositesS" target="_blank" rel="noopener noreferrer">
-      Opposites Quiz 1 - クイズ第2戦
-      </a>
-      <span class="levelValue" data-key="PlacesMlevel">(Level: 0)</span>
-    </li>
-    <li>
-      <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/oppositesM" target="_blank" rel="noopener noreferrer">
-      Opposites Quiz 2 - クイズ第2戦
-      </a>
-      <span class="levelValue" data-key="PlacesMlevel">(Level: 0)</span>
-    </li>
-  </ul>
+    </div>
 
+    <!-- Opposites Quiz Cards -->
+    <div class="quiz-card">
+      <div class="quiz-icon">↔️</div>
+      <h3>Opposites Quiz 1</h3>
+      <p>反対語クイズ 第1戦</p>
+      <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/oppositesS" target="_blank" rel="noopener noreferrer">
+        Start
+      </a>
+      <span class="levelValue" data-key="oppositesSlevel">(Level: 0)</span>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-icon">↕️</div>
+      <h3>Opposites Quiz 2</h3>
+      <p>反対語クイズ 第2戦</p>
+      <a href="https://phennylalanine.github.io/Yach-6-Quiz-Home/oppositesM" target="_blank" rel="noopener noreferrer">
+        Start
+      </a>
+      <span class="levelValue" data-key="oppositesMlevel">(Level: 0)</span>
+    </div>
+  </div>
 
   <script src="script.js"></script>
-  <footer style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #888;">
-  © 2024–2025 Created by Peter Gregory
-</footer>
 
+  <footer style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #888;">
+    © 2024–2025 Created by Peter Gregory
+  </footer>
 </body>
 </html>
