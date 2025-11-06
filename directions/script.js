@@ -236,13 +236,13 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveProgress() {
-    localStorage.setItem("directionsXP", xp);
-    localStorage.setItem("directionsLevel", level);
+    localStorage.setItem("directionsXPr", xp);
+    localStorage.setItem("directionsLevelr", level);
   }
 
   function loadProgress() {
-    const savedXP = localStorage.getItem("directionsXP");
-    const savedLevel = localStorage.getItem("directionsLevel");
+    const savedXP = localStorage.getItem("directionsXPr");
+    const savedLevel = localStorage.getItem("directionsLevelr");
 
     if (savedXP !== null) xp = parseInt(savedXP, 10);
     if (savedLevel !== null) level = parseInt(savedLevel, 10);
@@ -311,3 +311,4 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
