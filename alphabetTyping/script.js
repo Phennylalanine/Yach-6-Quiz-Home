@@ -1,16 +1,14 @@
 // --- Game Variables ---
-const MAX_LEVEL = 10; // <-- Set your desired maximum level here
-
 let currentChar = '';
-let currentLevel = 1;
+let currentLevel = 1; // Only Level 1 remains
 let revealTimer = null;
 
 let currentQuestionIndex = 0;
 let score = 0;
 let combo = 0;
-let level = 1;
-let xp = 0;
 let answered = false;
+
+const maxPoints = 35;  // <--- NEW: End game at 100 points
 
 const maxComboForBonus = 5;
 
@@ -23,83 +21,107 @@ const letterDisplay = document.getElementById("letterDisplay");
 const pointsEl = document.getElementById("points");
 const comboEl = document.getElementById("combo");
 const levelEl = document.getElementById("level");
-const xpBar = document.getElementById("xpBar");
-const xpText = document.getElementById("xpText");
 const confettiCanvas = document.getElementById("confettiCanvas");
 const ctx = confettiCanvas.getContext("2d");
 
 let confettiParticles = [];
 
-let selectedLevel = null;
-
 const startBtn = document.getElementById("startBtn");
 
-// Attach event listeners to level select buttons
+// Message element for congratulations (add this if not present in HTML)
+let congratsMessage = document.getElementById("congratsMessage");
+if (!congratsMessage) {
+  congratsMessage = document.createElement("div");
+  congratsMessage.id = "congratsMessage";
+  congratsMessage.style.fontSize = "2rem";
+  congratsMessage.style.color = "#FF4081";
+  congratsMessage.style.textAlign = "center";
+  congratsMessage.style.marginTop = "50px";
+  congratsMessage.style.display = "none";
+  congratsMessage.textContent = "おめでとうございます！やりました！ぜひ他のクイズにも挑戦してください。";
+  document.getElementById("gameScreen").appendChild(congratsMessage);
+}
+
+// Remove Level Select Buttons except Level 1
 document.querySelectorAll(".level-select").forEach(button => {
-  button.addEventListener("click", () => {
-    selectLevel(parseInt(button.textContent.replace("Level ", "")));
-  });
+  if (button.textContent.trim() === "Level 1") {
+    button.addEventListener("click", () => {
+      selectLevel(1);
+    });
+    button.style.display = "inline-block";
+  } else {
+    button.style.display = "none";
+  }
 });
 
 // Start button listener
 startBtn.addEventListener("click", () => {
-  if (selectedLevel !== null) {
-    document.getElementById("startScreen").style.display = "none";
-    document.getElementById("gameScreen").style.display = "block";
-    startGame(selectedLevel);
-  }
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
+  startGame(1);
 });
 
-// Keyboard input listener
+// Disable input after completing game
+let gameCompleted = false;
+
+// Keyboard input listener (score system and penalty, no XP/level)
 window.addEventListener("keydown", (e) => {
+  if (gameCompleted) return;
   if (!currentChar) return;
-  if (e.key.toLowerCase() === currentChar.toLowerCase()) {
+  const pressedKey = e.key.toLowerCase();
+  const targetKey = currentChar.toLowerCase();
+  if (pressedKey === targetKey) {
     clearTimeout(revealTimer);
     handleCorrectAnswer();
+  } else if (keys.includes(pressedKey)) {
+    // Wrong key pressed
+    combo = 0;
+    score = Math.max(0, score - 1); // Prevent negative score
+    updateStats();
+    flashWrongKey();
   }
 });
 
 // Functions
 
-function selectLevel(level) {
-  selectedLevel = level;
+function flashWrongKey() {
+  letterDisplay.classList.add("flash-wrong");
+  setTimeout(() => {
+    letterDisplay.classList.remove("flash-wrong");
+  }, 200);
+}
 
+function selectLevel(level) {
+  currentLevel = 1;
+  startBtn.disabled = false;
   // Highlight selected button
   const buttons = document.querySelectorAll(".level-select");
   buttons.forEach(btn => btn.classList.remove("selected"));
-
-  const selectedButton = buttons[level - 1]; // Level 1 = index 0
+  const selectedButton = buttons[0]; // Only Level 1
   if (selectedButton) {
     selectedButton.classList.add("selected");
   }
-
-  // Enable the start button
-  startBtn.disabled = false;
 }
 
 function startGame(levelNumber) {
-  currentLevel = levelNumber;
+  currentLevel = 1; // Only Level 1
   currentChar = '';
   score = 0;
   combo = 0;
-  xp = 0;
-  level = 1;
   answered = false;
+  gameCompleted = false;  // <--- Reset
+  congratsMessage.style.display = "none"; // <--- Hide on start
+  letterDisplay.style.display = "block";
   updateStats();
-  loadProgress();
   nextChar();
 }
 
 function nextChar() {
   removeHighlight();
   currentChar = keys[Math.floor(Math.random() * keys.length)];
-  letterDisplay.textContent = currentLevel === 1 ? currentChar : '';
+  letterDisplay.textContent = currentChar;
   speak(currentChar);
-  if (currentLevel === 1) {
-    highlightKey(currentChar);
-  } else {
-    revealTimer = setTimeout(() => highlightKey(currentChar), 5000);
-  }
+  highlightKey(currentChar);
 }
 
 function highlightKey(char) {
@@ -116,99 +138,18 @@ function removeHighlight() {
 function handleCorrectAnswer() {
   combo++;
   score++;
-
-  let bonusInterval = 5;
-  if (combo >= 60) {
-    bonusInterval = 20;
-  } else if (combo >= 45) {
-    bonusInterval = 15;
-  } else if (combo >= 30) {
-    bonusInterval = 10;
-  }
-
-  let xpBonus = 1;
-
-  if (combo % bonusInterval === 0) {
-    if (combo >= 15) {
-      const stepsPast15 = Math.floor((combo - 15) / 5);
-      xpBonus = 3 + stepsPast15;
-    }
-
-    if (combo === 30 || combo === 45 || combo === 60) {
-      xpBonus += 2;
-    }
-  }
-
-  gainXP(xpBonus);
-  if (xpBonus > 0) {
-    showFloatingXP(`+${xpBonus} XP`);
-  }
-
   updateStats();
-  nextChar();
-}
-
-function gainXP(amount) {
-  // If already at max level, do nothing
-  if (level >= MAX_LEVEL) {
-    xp = 0; // Optionally lock XP at zero at max level
-    updateStats();
-    saveProgress();
-    return;
+  if (score >= maxPoints) {
+    endGame();
+  } else {
+    nextChar();
   }
-
-  let levelBefore = level;
-  xp += amount;
-
-  // Level up logic with max level cap
-  while (xp >= xpToNextLevel(level) && level < MAX_LEVEL) {
-    xp -= xpToNextLevel(level);
-    level++;
-    if (level >= MAX_LEVEL) {
-      xp = 0; // No more XP past max level
-      break;
-    }
-  }
-
-  if (level > levelBefore) {
-    triggerConfetti();
-  }
-
-  // Ensure level and XP are capped
-  if (level >= MAX_LEVEL) {
-    level = MAX_LEVEL;
-    xp = 0;
-  }
-
-  saveProgress();
-  updateStats();
-}
-
-function xpToNextLevel(currentLevel) {
-  // If at max level, no more XP needed
-  if (currentLevel >= MAX_LEVEL) return Infinity;
-  let xpRequired = 3;
-  for (let i = 2; i <= currentLevel; i++) {
-    xpRequired += i;
-  }
-  return xpRequired;
 }
 
 function updateStats() {
   pointsEl.textContent = score;
   comboEl.textContent = combo;
-  levelEl.textContent = level;
-
-  let needed = xpToNextLevel(level);
-  let percent = 0;
-  if (level < MAX_LEVEL) {
-    percent = (xp / needed) * 100;
-    xpText.textContent = `${xp} / ${needed}`;
-  } else {
-    percent = 100;
-    xpText.textContent = `MAX LEVEL`;
-  }
-  xpBar.style.width = `${Math.min(percent, 100)}%`;
+  levelEl.textContent = currentLevel;   // Level stays at 1
 }
 
 function speak(text) {
@@ -217,34 +158,8 @@ function speak(text) {
   speechSynthesis.speak(utter);
 }
 
-// ✅ MODIFIED: Save XP/Level separately per game mode
-function saveProgress() {
-  localStorage.setItem(`TypingXP_Level${currentLevel}`, xp);
-  localStorage.setItem(`TypingLevel_Level${currentLevel}`, level);
-}
-
-// ✅ MODIFIED: Load XP/Level separately per game mode
-function loadProgress() {
-  const savedXP = localStorage.getItem(`TypingXP_Level${currentLevel}`);
-  const savedLevel = localStorage.getItem(`TypingLevel_Level${currentLevel}`);
-  xp = savedXP !== null ? parseInt(savedXP) : 0;
-  level = savedLevel !== null ? parseInt(savedLevel) : 1;
-
-  // Enforce max level and XP
-  if (level >= MAX_LEVEL) {
-    level = MAX_LEVEL;
-    xp = 0;
-  }
-}
-
 function showFloatingXP(text) {
-  const xpElem = document.createElement("div");
-  xpElem.textContent = text;
-  xpElem.className = "floating-xp";
-  xpElem.style.left = `${Math.random() * 80 + 10}%`;
-  xpElem.style.top = "50%";
-  document.body.appendChild(xpElem);
-  setTimeout(() => xpElem.remove(), 1500);
+  // Function kept for compatibility, but not used since XP is removed
 }
 
 function triggerConfetti() {
@@ -281,6 +196,14 @@ function updateConfetti() {
       i--;
     }
   }
+}
+
+function endGame() {
+  gameCompleted = true;
+  currentChar = '';
+  letterDisplay.style.display = "none";
+  congratsMessage.style.display = "block";
+  triggerConfetti();
 }
 
 function resizeCanvas() {
