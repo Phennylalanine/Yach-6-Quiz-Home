@@ -8,6 +8,7 @@ window.addEventListener("DOMContentLoaded", () => {
     { key: "eventSlevelr", multiplier: 0.3 },
     { key: "placeSlevelr", multiplier: 0.3 },
     { key: "oppositeSlevelr", multiplier: 0.3 },
+    { key: "schoolEventSlevelr", multiplier: 0.3 },
     { key: "directionsLevelr", multiplier: 0.3 },
     { key: "buildingMlevelr", multiplier: 0.5 },
     { key: "eventMlevelr", multiplier: 0.5 },
