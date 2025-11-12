@@ -6,11 +6,11 @@ window.addEventListener("DOMContentLoaded", () => {
   const quizData = [
     { key: "buildingSlevelr", multiplier: 0.3 },
     { key: "eventSlevelr", multiplier: 0.3 },
-    { key: "placesSlevelr", multiplier: 0.3 },
+    { key: "placeSlevelr", multiplier: 0.3 },
     { key: "oppositeSlevelr", multiplier: 0.3 },
     { key: "directionsLevelr", multiplier: 0.3 },
     { key: "buildingMlevelr", multiplier: 0.5 },
-    { key: "eventsMlevelr", multiplier: 0.5 },
+    { key: "eventMlevelr", multiplier: 0.5 },
     { key: "placesMlevelr", multiplier: 0.5 },
     { key: "oppositeMlevelr", multiplier: 0.5 },
       ];
