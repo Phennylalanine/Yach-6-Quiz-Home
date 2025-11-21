@@ -11,6 +11,13 @@ window.addEventListener("DOMContentLoaded", () => {
     plantEvo_2B: "モリフワ",
     shadowEvo_2A: "スミボウ",
     shadowEvo_2B: "ヨルビト",
+    plantEvo_3A: "Utsurukari",
+    plantEvo3B: "hanabame",
+    shadowEvo3A: "shadourou",
+    shadowEvo3B: "Gurumudon",
+    shadowEvo3C: "Uisupappu",
+    shadowEvo3D: "Shadopiku",
+  
   };
 
   function getDisplayName(imgFile) {
