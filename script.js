@@ -15,15 +15,15 @@ window.addEventListener("DOMContentLoaded", () => {
     shadowEvo_2B: "ヨルビト",
 
     // LEVEL 30 Placeholder Names
-    plantEvo3A: "植物進化A（仮）",
-    plantEvo3B: "植物進化B（仮）",
-    plantEvo3C: "植物進化C（仮）",
-    plantEvo3D: "植物進化D（仮）",
+    shadowEvo3A: "シャドウロウ",
+    shadowEvo3B: "グルムドン",
+    shadowEvo3C: "ウィスパップ",
+    shadowEvo3D: "シャドピク",
 
-    shadowEvo3A: "シャドウ進化A（仮）",
-    shadowEvo3B: "シャドウ進化B（仮）",
-    shadowEvo3C: "シャドウ進化C（仮）",
-    shadowEvo3D: "シャドウ進化D（仮）",
+    plantEvo3A: "ハナリコ",
+    plantEvo3B: "ツルケン",
+    plantEvo3C: "シャドウ進化C（仮）",
+    plantEvo3D: "シャドウ進化D（仮）",
 
     // Placeholder fallback
     placeholder: "進化中（仮）"
