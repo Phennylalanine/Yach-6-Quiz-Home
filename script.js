@@ -48,7 +48,7 @@ window.addEventListener("DOMContentLoaded", () => {
     { key: "oppositeMlevelr", multiplier: 0.5 },
   ];
 
-  // Calculate level
+  // === CALCULATE OVERALL LEVEL ===
   const overallLevelRaw = quizData.reduce((sum, { key, multiplier }) => {
     const value = parseInt(localStorage.getItem(key)) || 0;
     return sum + value * multiplier;
@@ -56,7 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const overallLevel = Math.floor(overallLevelRaw);
 
-  // Storage Helpers
+  // === STORAGE HELPERS ===
   const getBranch = () => localStorage.getItem("branchChoice");
   const setBranch = (b) => localStorage.setItem("branchChoice", b);
   const getEvo2 = () => localStorage.getItem("evo2Choice");
@@ -64,7 +64,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const getEvo3 = () => localStorage.getItem("evo3Choice");
   const setEvo3 = (v) => localStorage.setItem("evo3Choice", v);
 
-  // UI Helpers
+  // === UI HELPERS ===
   function clearContainer() {
     container.innerHTML = "";
     container.style.textAlign = "center";
@@ -100,7 +100,7 @@ window.addEventListener("DOMContentLoaded", () => {
     return p;
   }
 
-  // MAIN RENDER
+  // === MAIN RENDER ===
   function render() {
     clearContainer();
 
@@ -192,7 +192,6 @@ window.addEventListener("DOMContentLoaded", () => {
       if (!evo3) {
         container.appendChild(label("第3進化を選んでください（1回のみ）："));
 
-        // Always use placeholder.webp until images exist
         const leftImg = "placeholder.webp";
         const rightImg = "placeholder.webp";
 
@@ -207,7 +206,6 @@ window.addEventListener("DOMContentLoaded", () => {
         left.appendChild(img(`${IMG_BASE}${leftImg}`));
         right.appendChild(img(`${IMG_BASE}${rightImg}`));
 
-        // evo2 → determines whether choices are A/B or C/D
         left.appendChild(btn("この進化を選ぶ", () => {
           setEvo3(evo2 === "A" ? "A" : "C");
           render();
@@ -226,15 +224,7 @@ window.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // FINAL EVOLUTION (Level 30)
-      const fileMapping = {
-        A: `${branch}Evo3A.webp`,
-        B: `${branch}Evo3B.webp`,
-        C: `${branch}Evo3C.webp`,
-        D: `${branch}Evo3D.webp`,
-      };
-
-      const finalEvoImg = "placeholder.webp"; // display placeholder
+      const finalEvoImg = "placeholder.webp"; 
       container.appendChild(img(`${IMG_BASE}${finalEvoImg}`, "最終進化形態"));
 
       container.appendChild(label(`最終進化：${evo3}`));
@@ -253,5 +243,16 @@ window.addEventListener("DOMContentLoaded", () => {
     container.appendChild(label(`分岐：${branch} ｜ 進化：${evo2} ｜ レベル：${overallLevel}`));
   }
 
+  // === NEW FIX: UPDATE QUIZ CARD LEVELS ===
+  function updateQuizCardLevels() {
+    document.querySelectorAll(".levelValue").forEach(span => {
+      const key = span.dataset.key;
+      const storedValue = localStorage.getItem(key) || 0;
+      span.textContent = `(Level: ${storedValue})`;
+    });
+  }
+
+  // RUN EVERYTHING
   render();
+  updateQuizCardLevels();  // <-- FIX APPLIED
 });
