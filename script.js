@@ -13,6 +13,8 @@ window.addEventListener("DOMContentLoaded", () => {
     shadowEvo_2B: "ヨルビト",
     plantEvo_3A: "Utsurukari",
     plantEvo3B: "hanabame",
+    plantEvo_3A: "N/A",
+    plantEvo3B: "N/A",
     shadowEvo3A: "shadourou",
     shadowEvo3B: "Gurumudon",
     shadowEvo3C: "Uisupappu",
