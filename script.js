@@ -22,8 +22,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     plantEvo3A: "ハナリコ",
     plantEvo3B: "ツルケン",
-    plantEvo3C: "シャドウ進化C（仮）",
-    plantEvo3D: "シャドウ進化D（仮）",
+    plantEvo3C: "カメキノ",
+    plantEvo3D: "キカブン",
 
     // Placeholder fallback
     placeholder: "進化中（仮）"
