@@ -14,7 +14,6 @@ window.addEventListener("DOMContentLoaded", () => {
     shadowEvo_2A: "スミボウ",
     shadowEvo_2B: "ヨルビト",
 
-    // LEVEL 30 Placeholder Names
     shadowEvo3A: "シャドウロウ",
     shadowEvo3B: "グルムドン",
     shadowEvo3C: "ウィスパップ",
@@ -25,7 +24,6 @@ window.addEventListener("DOMContentLoaded", () => {
     plantEvo3C: "カメキノ",
     plantEvo3D: "キカブン",
 
-    // Placeholder fallback
     placeholder: "進化中（仮）"
   };
 
@@ -34,7 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
     return IMAGE_DISPLAY_NAMES[key] || "名称未設定";
   }
 
-  // QUIZ WEIGHTS (your categories)
+  // QUIZ WEIGHTS
   const quizData = [
     { key: "buildingSlevelr", multiplier: 0.3 },
     { key: "eventSlevelr", multiplier: 0.3 },
@@ -48,7 +46,7 @@ window.addEventListener("DOMContentLoaded", () => {
     { key: "oppositeMlevelr", multiplier: 0.5 },
   ];
 
-  // === CALCULATE OVERALL LEVEL ===
+  // CALCULATE OVERALL LEVEL
   const overallLevelRaw = quizData.reduce((sum, { key, multiplier }) => {
     const value = parseInt(localStorage.getItem(key)) || 0;
     return sum + value * multiplier;
@@ -56,7 +54,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const overallLevel = Math.floor(overallLevelRaw);
 
-  // === STORAGE HELPERS ===
+  // STORAGE HELPERS
   const getBranch = () => localStorage.getItem("branchChoice");
   const setBranch = (b) => localStorage.setItem("branchChoice", b);
   const getEvo2 = () => localStorage.getItem("evo2Choice");
@@ -64,7 +62,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const getEvo3 = () => localStorage.getItem("evo3Choice");
   const setEvo3 = (v) => localStorage.setItem("evo3Choice", v);
 
-  // === UI HELPERS ===
+  // UI HELPERS
   function clearContainer() {
     container.innerHTML = "";
     container.style.textAlign = "center";
@@ -100,11 +98,11 @@ window.addEventListener("DOMContentLoaded", () => {
     return p;
   }
 
-  // === MAIN RENDER ===
+  // MAIN RENDER
   function render() {
     clearContainer();
 
-    // Level < 5 → still egg
+    // Level < 5 → Egg form
     if (overallLevel < 5) {
       const imgFile = "shadowPlantEgg.png";
       container.appendChild(img(`${IMG_BASE}${imgFile}`, "Egg"));
@@ -113,7 +111,7 @@ window.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Need branch (level ≥ 5)
+    // Need branch selection
     const branch = getBranch();
     if (!branch) {
       container.appendChild(label("進化の分岐を選んでください："));
@@ -145,7 +143,7 @@ window.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Level < 10 → show slime form
+    // Level < 10 → Slime form
     if (overallLevel < 10) {
       const slimeImg = branch === "plant" ? "plantSlime_1.png" : "shadowSlime_1.png";
       container.appendChild(img(`${IMG_BASE}${slimeImg}`));
@@ -154,7 +152,7 @@ window.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Need evo2 choice (level ≥ 10)
+    // Need evo2 choice
     const evo2 = getEvo2();
     if (!evo2) {
       container.appendChild(label("第2進化を選んでください（1回のみ）："));
@@ -185,15 +183,26 @@ window.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // ⭐ LEVEL 30 EVOLUTION (NEW)
+    // ⭐⭐⭐ LEVEL 30 EVOLUTION — FIXED FULL VERSION ⭐⭐⭐
     if (overallLevel >= 30) {
       const evo3 = getEvo3();
 
+      // Player must choose final evolution
       if (!evo3) {
         container.appendChild(label("第3進化を選んでください（1回のみ）："));
 
-        const leftImg = "placeholder.webp";
-        const rightImg = "placeholder.webp";
+        // Evo2 A → choose A or B
+        // Evo2 B → choose C or D
+        const leftKey = branch === "plant"
+          ? (evo2 === "A" ? "plantEvo3A" : "plantEvo3C")
+          : (evo2 === "A" ? "shadowEvo3A" : "shadowEvo3C");
+
+        const rightKey = branch === "plant"
+          ? (evo2 === "A" ? "plantEvo3B" : "plantEvo3D")
+          : (evo2 === "A" ? "shadowEvo3B" : "shadowEvo3D");
+
+        const leftImgFile = `${leftKey}.png`;
+        const rightImgFile = `${rightKey}.png`;
 
         const wrap = document.createElement("div");
         wrap.style.display = "flex";
@@ -201,16 +210,16 @@ window.addEventListener("DOMContentLoaded", () => {
         wrap.style.justifyContent = "center";
 
         const left = document.createElement("div");
-        const right = document.createElement("div");
-
-        left.appendChild(img(`${IMG_BASE}${leftImg}`));
-        right.appendChild(img(`${IMG_BASE}${rightImg}`));
-
+        left.appendChild(img(`${IMG_BASE}${leftImgFile}`));
+        left.appendChild(label(getDisplayName(leftImgFile)));
         left.appendChild(btn("この進化を選ぶ", () => {
           setEvo3(evo2 === "A" ? "A" : "C");
           render();
         }));
 
+        const right = document.createElement("div");
+        right.appendChild(img(`${IMG_BASE}${rightImgFile}`));
+        right.appendChild(label(getDisplayName(rightImgFile)));
         right.appendChild(btn("この進化を選ぶ", () => {
           setEvo3(evo2 === "A" ? "B" : "D");
           render();
@@ -219,20 +228,25 @@ window.addEventListener("DOMContentLoaded", () => {
         wrap.appendChild(left);
         wrap.appendChild(right);
         container.appendChild(wrap);
-
         container.appendChild(label(`レベル：${overallLevel}`));
         return;
       }
 
-      const finalEvoImg = "placeholder.webp"; 
-      container.appendChild(img(`${IMG_BASE}${finalEvoImg}`, "最終進化形態"));
+      // 🎉 Final Evo — Show correct monster
+      const finalKey = branch === "plant"
+        ? `plantEvo3${evo3}`
+        : `shadowEvo3${evo3}`;
 
+      const finalEvoImg = `${finalKey}.png`;
+
+      container.appendChild(img(`${IMG_BASE}${finalEvoImg}`, "最終進化形態"));
+      container.appendChild(label(getDisplayName(finalEvoImg)));
       container.appendChild(label(`最終進化：${evo3}`));
       container.appendChild(label(`レベル：${overallLevel}`));
       return;
     }
 
-    // If level < 30 but evo2 exists → show evo2
+    // Level < 30 but evo2 exists → show evo2 form
     const finalEvo2File =
       branch === "plant"
         ? (evo2 === "A" ? "plantEvo_2A.png" : "plantEvo_2B.png")
@@ -243,7 +257,7 @@ window.addEventListener("DOMContentLoaded", () => {
     container.appendChild(label(`分岐：${branch} ｜ 進化：${evo2} ｜ レベル：${overallLevel}`));
   }
 
-  // === NEW FIX: UPDATE QUIZ CARD LEVELS ===
+  // UPDATE QUIZ CARD LEVELS
   function updateQuizCardLevels() {
     document.querySelectorAll(".levelValue").forEach(span => {
       const key = span.dataset.key;
@@ -252,7 +266,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // RUN EVERYTHING
+  // RUN
   render();
-  updateQuizCardLevels();  // <-- FIX APPLIED
+  updateQuizCardLevels();
 });
