@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Building Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<h1>建物クイズ</h1>
+
+<!-- Monster Panel -->
+<div id="monsterPanel">
+  <img id="monsterImg" src="monster/default.png" alt="monster">
+  <div id="monsterBubble">Hello!</div>
+</div>
+
+<!-- Start Screen -->
+<div id="startScreen" class="active">
+  <button id="startBtn">Start Quiz</button>
+</div>
+
+<!-- Quiz Screen -->
+<div id="quizScreen" class="hidden">
+  <div id="statsPanel">
+    <div class="level-section">
+      <div><strong>Level:</strong> <span id="level">1</span></div>
+      <div id="xpBarContainer">
+        <div id="xpBar"></div>
+      </div>
+      <small id="xpText">0 / 10 XP</small>
+    </div>
+
+    <div>
+      <strong>Score:</strong> <span id="points">0</span> |
+      <strong>Combo:</strong> <span id="combo">0</span>
+    </div>
+  </div>
+
+  <div id="jpText">月曜日</div>
+  <div id="enText"></div>
+
+  <input type="text" id="answerInput" autocomplete="off" placeholder="Type the correct English" />
+  <div id="feedback"></div>
+
+  <div id="choicesText"></div>
+
+  <button id="nextBtn" disabled>Next</button>
+  <button id="tryAgainBtn" style="display:none;">Try Again</button>
+</div>
+
+<canvas id="confettiCanvas" style="position:fixed; top:0; left:0; pointer-events:none; z-index:1000;"></canvas>
+
+<script src="script.js"></script>
+
+<footer style="text-align:center; margin-top:40px; font-size:0.9em; color:#888;">
+ © 2024–2025 Created by Peter Gregory
+</footer>
+
+</body>
+</html>
