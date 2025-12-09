@@ -53,6 +53,26 @@
 
 <canvas id="confettiCanvas" style="position:fixed; top:0; left:0; pointer-events:none; z-index:1000;"></canvas>
 
+<!-- Inline script: read the user's chosen monster from localStorage and apply it -->
+<script>
+  (function () {
+    try {
+      const img = document.getElementById('monsterImg');
+      if (!img) return;
+      const stored = localStorage.getItem('selectedMonster');
+      if (!stored) return; // no selection found — keep default
+
+      // Normalize stored value:
+      // Accept either "monster/green.png" or "green.png" (or any filename)
+      const normalized = stored.startsWith('monster/') ? stored : 'monster/' + stored;
+      img.src = normalized;
+    } catch (e) {
+      // Fail silently — keep default image if anything goes wrong
+      console.error('Failed to load selected monster from localStorage', e);
+    }
+  })();
+</script>
+
 <script src="script.js"></script>
 
 <footer style="text-align:center; margin-top:40px; font-size:0.9em; color:#888;">
