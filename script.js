@@ -62,6 +62,18 @@ window.addEventListener("DOMContentLoaded", () => {
   const getEvo3 = () => localStorage.getItem("evo3Choice");
   const setEvo3 = (v) => localStorage.setItem("evo3Choice", v);
 
+  // NEW: selectedMonster helper
+  // We store only the filename (e.g. "plantSlime_1.png") so other pages can normalize the path.
+  const setSelectedMonster = (imgFile) => {
+    try {
+      if (!imgFile) return;
+      localStorage.setItem("selectedMonster", imgFile);
+    } catch (e) {
+      console.error("Failed to save selectedMonster", e);
+    }
+  };
+  const getSelectedMonster = () => localStorage.getItem("selectedMonster");
+
   // UI HELPERS
   function clearContainer() {
     container.innerHTML = "";
@@ -108,6 +120,8 @@ window.addEventListener("DOMContentLoaded", () => {
       container.appendChild(img(`${IMG_BASE}${imgFile}`, "Egg"));
       container.appendChild(label(getDisplayName(imgFile)));
       container.appendChild(label(`レベル：${overallLevel}`));
+      // Store the currently shown monster (optional)
+      setSelectedMonster(imgFile);
       return;
     }
 
@@ -137,8 +151,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
       container.appendChild(wrap);
 
-      container.appendChild(btn("植物（プラント）を選ぶ", () => { setBranch("plant"); render(); }));
-      container.appendChild(btn("シャドウを選ぶ", () => { setBranch("shadow"); render(); }));
+      // When choosing branch, also save selectedMonster as the slime-stage filename
+      container.appendChild(btn("植物（プラント）を選ぶ", () => {
+        setBranch("plant");
+        setSelectedMonster(plantFile);
+        render();
+      }));
+      container.appendChild(btn("シャドウを選ぶ", () => {
+        setBranch("shadow");
+        setSelectedMonster(shadowFile);
+        render();
+      }));
       container.appendChild(label(`現在レベル：${overallLevel}`));
       return;
     }
@@ -149,6 +172,8 @@ window.addEventListener("DOMContentLoaded", () => {
       container.appendChild(img(`${IMG_BASE}${slimeImg}`));
       container.appendChild(label(getDisplayName(slimeImg)));
       container.appendChild(label(`分岐：${branch} ｜ レベル：${overallLevel}`));
+      // Store current displayed monster (optional)
+      setSelectedMonster(slimeImg);
       return;
     }
 
@@ -168,12 +193,20 @@ window.addEventListener("DOMContentLoaded", () => {
       const aw = document.createElement("div");
       aw.appendChild(img(`${IMG_BASE}${aFile}`));
       aw.appendChild(label(getDisplayName(aFile)));
-      aw.appendChild(btn("進化A を決定", () => { setEvo2("A"); render(); }));
+      aw.appendChild(btn("進化A を決定", () => {
+        setEvo2("A");
+        setSelectedMonster(aFile);
+        render();
+      }));
 
       const bw = document.createElement("div");
       bw.appendChild(img(`${IMG_BASE}${bFile}`));
       bw.appendChild(label(getDisplayName(bFile)));
-      bw.appendChild(btn("進化B を決定", () => { setEvo2("B"); render(); }));
+      bw.appendChild(btn("進化B を決定", () => {
+        setEvo2("B");
+        setSelectedMonster(bFile);
+        render();
+      }));
 
       wrap.appendChild(aw);
       wrap.appendChild(bw);
@@ -213,7 +246,9 @@ window.addEventListener("DOMContentLoaded", () => {
         left.appendChild(img(`${IMG_BASE}${leftImgFile}`));
         left.appendChild(label(getDisplayName(leftImgFile)));
         left.appendChild(btn("この進化を選ぶ", () => {
-          setEvo3(evo2 === "A" ? "A" : "C");
+          const choice = evo2 === "A" ? "A" : "C";
+          setEvo3(choice);
+          setSelectedMonster(leftImgFile);
           render();
         }));
 
@@ -221,7 +256,9 @@ window.addEventListener("DOMContentLoaded", () => {
         right.appendChild(img(`${IMG_BASE}${rightImgFile}`));
         right.appendChild(label(getDisplayName(rightImgFile)));
         right.appendChild(btn("この進化を選ぶ", () => {
-          setEvo3(evo2 === "A" ? "B" : "D");
+          const choice = evo2 === "A" ? "B" : "D";
+          setEvo3(choice);
+          setSelectedMonster(rightImgFile);
           render();
         }));
 
@@ -243,6 +280,9 @@ window.addEventListener("DOMContentLoaded", () => {
       container.appendChild(label(getDisplayName(finalEvoImg)));
       container.appendChild(label(`最終進化：${evo3}`));
       container.appendChild(label(`レベル：${overallLevel}`));
+
+      // Ensure the final evo is saved as the selected monster
+      setSelectedMonster(finalEvoImg);
       return;
     }
 
@@ -255,6 +295,9 @@ window.addEventListener("DOMContentLoaded", () => {
     container.appendChild(img(`${IMG_BASE}${finalEvo2File}`));
     container.appendChild(label(getDisplayName(finalEvo2File)));
     container.appendChild(label(`分岐：${branch} ｜ 進化：${evo2} ｜ レベル：${overallLevel}`));
+
+    // Store currently displayed evo2 monster
+    setSelectedMonster(finalEvo2File);
   }
 
   // UPDATE QUIZ CARD LEVELS
