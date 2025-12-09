@@ -1,0 +1,34 @@
+/* --- Monster Panel --- */
+#monsterPanel {
+  position: fixed;
+  left: 10px;
+  bottom: 20px;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#monsterImg {
+  width: 140px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+#monsterBubble {
+  background: white;
+  border-radius: 12px;
+  padding: 6px 10px;
+  margin-top: 6px;
+  font-size: 1em;
+  border: 2px solid #333;
+  display: none;
+  max-width: 180px;
+  text-align: center;
+  animation: bubbleIn 0.25s ease-out;
+}
+
+@keyframes bubbleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
