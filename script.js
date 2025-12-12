@@ -44,6 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
     { key: "eventMlevelr", multiplier: 0.5 },
     { key: "placesMlevelr", multiplier: 0.5 },
     { key: "oppositeMlevelr", multiplier: 0.5 },
+    { key: "schoolEventMlevelr", multiplier: 0.5 },
   ];
 
   // CALCULATE OVERALL LEVEL
