@@ -217,7 +217,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     // ⭐⭐⭐ LEVEL 30 EVOLUTION — FIXED FULL VERSION ⭐⭐⭐
-    if (overallLevel >= 30) {
+    if (overallLevel >= 20) {
       const evo3 = getEvo3();
 
       // Player must choose final evolution
