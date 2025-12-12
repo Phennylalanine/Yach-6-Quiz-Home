@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Japanese-English Quiz</title>
+  <link rel="stylesheet" href="style.css"> <!-- ✅ Link to external CSS -->
+</head>
 
+<body>
+  <h1>Japanese-English Quiz</h1>
+
+  <div id="startScreen" class="active">
+    <button id="startBtn">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen">
+    <!-- ✅ Moved Stats Panel to top with new layout -->
+    <div id="topPanel">
+      <div id="levelSection" class="panel-left">
+        <div><strong>Level:</strong> <span id="level">1</span></div>
+        <div id="xpBarContainer" aria-label="Experience Progress Bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div id="xpBar"></div>
+        </div>
+        <small id="xpText">0 / 3 XP</small>
+      </div>
+      <div id="scoreSection" class="panel-right">
+        <div><strong>Score:</strong> <span id="points">0</span></div>
+        <div><strong>Combo:</strong> <span id="combo">0</span></div>
+      </div>
+    </div>
+
+    <div id="jpText">月曜日</div>
+    <div id="choicesText"></div>
+
+    <!-- Hidden English text element for JS -->
+    <div id="enText" style="display:none;"></div>
+
+    <input type="text" id="answerInput" autocomplete="off" placeholder="Type the correct English" />
+    <div id="feedback"></div>
+
+    <button id="nextBtn" disabled>Next</button>
+    <button id="tryAgainBtn" style="display:none;">Try Again</button>
+  </div>
+
+  <canvas id="confettiCanvas" style="position:fixed; top:0; left:0; pointer-events:none; z-index:1000;"></canvas>
+
+  <script src="script.js"></script>
+  <footer style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #888;">
+  © 2024–2025 Created by Peter Gregory
+</footer>
+
+</body>
+</html>
