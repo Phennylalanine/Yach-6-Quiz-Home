@@ -1,65 +1,68 @@
-body {
-  font-family: Arial, sans-serif;
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #f0f0f0;
-  text-align: center;
+:root {
+  --primary: #0066cc;
+  --bg: #f5f5f5;
+  --card-bg: #fff;
+  --text: #333;
+  --text-light: #666;
 }
 
-h1 {
-  margin-bottom: 20px;
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--bg);
+  text-align: center;
+  color: var(--text);
+}
+
+header h1 {
+  margin-bottom: 0.3em;
 }
 
 #overallLevel {
   font-size: 1.3em;
-  margin: 18px 0;
-  color: #333;
+  margin-bottom: 1.2em;
+  color: var(--primary);
 }
 
 .quiz-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  justify-content: center;
-  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
 }
 
 .quiz-card {
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 10px;
-  padding: 22px 18px;
-  width: 220px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: box-shadow .2s;
+  padding: 1.4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .quiz-card:hover {
-  box-shadow: 0 4px 14px rgba(0,0,0,0.14);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
 .quiz-icon {
-  font-size: 2.2em;
-  margin-bottom: 7px;
+  font-size: 2.4em;
+  margin-bottom: 0.4em;
 }
 
 .quiz-card h3 {
-  margin: 6px 0 10px 0;
   font-size: 1.15em;
+  margin: 0.4em 0;
 }
 
 .quiz-card p {
-  margin: 0 0 10px 0;
-  color: #666;
+  color: var(--text-light);
+  margin: 0 0 0.8em 0;
 }
 
 .quiz-card a {
-  margin: 12px 0 4px 0;
   font-weight: bold;
-  color: #0066cc;
+  color: var(--primary);
   text-decoration: none;
 }
 
@@ -68,9 +71,19 @@ h1 {
 }
 
 .levelValue {
+  display: block;
+  margin-top: 0.5em;
   font-weight: bold;
-  color: #0066cc;
-  margin-left: 4px;
-  margin-top: 6px;
-  font-size: 1em;
+  color: var(--primary);
+}
+
+footer {
+  margin-top: 2rem;
+  font-size: 0.9em;
+  color: #777;
+}
+
+/* Small fade-in effect for the monster display */
+#overallLevel {
+  transition: opacity 0.3s ease;
 }
