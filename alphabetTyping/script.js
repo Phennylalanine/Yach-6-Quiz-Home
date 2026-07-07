@@ -27,6 +27,8 @@ const ctx = confettiCanvas.getContext("2d");
 let confettiParticles = [];
 
 const startBtn = document.getElementById("startBtn");
+// Auto-select the only remaining level so Start is enabled immediately
+selectLevel(1);
 
 // Message element for congratulations (add this if not present in HTML)
 let congratsMessage = document.getElementById("congratsMessage");
