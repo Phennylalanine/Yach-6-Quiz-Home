@@ -35,7 +35,7 @@ window.addEventListener("DOMContentLoaded", () => {
     "placesMlevelr",
     "oppositeMlevelr",
     "schoolEventMlevelr",
-  ].map((key) => ({ key, multiplier: key.includes("M") ? 0.85 : 0.9 }));
+  ].map((key) => ({ key, multiplier: key.includes("M") ? 1 : 0.75 }));
 
   // === LOCAL STORAGE HELPERS ===
   const LS = {
