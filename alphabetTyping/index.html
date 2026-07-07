@@ -8,21 +8,14 @@
 </head>
 <body>
   <h1>Typing Game</h1>
-
   <!-- Landing Screen -->
   <div id="startScreen">
-    <h2>Select Level</h2>
-    <div>
-      <button class="level-select" onclick="selectLevel(1)">Level 1</button>
-      </div>
-    <button id="startBtn" disabled>Start Game</button>
+    <button id="startBtn">Start Game</button>
   </div>
-
   <!-- Game Screen -->
   <div id="gameScreen" style="display:none;">
     <div class="game-container">
       <div id="letterDisplay"></div>
-
       <!-- Stats UI -->
       <div class="stats">
         <p>Points: <span id="points">0</span> | Combo: <span id="combo">0</span> | Level: <span id="level">1</span></p>
@@ -32,7 +25,6 @@
         </div>
       </div>
     </div>
-
     <!-- Visual Keyboard -->
     <div class="keyboard">
       <div class="row">
@@ -72,10 +64,8 @@
       </div>
     </div>
   </div>
-
   <!-- Confetti Canvas -->
   <canvas id="confettiCanvas"></canvas>
-
   <script src="script.js"></script>
 </body>
 </html>
