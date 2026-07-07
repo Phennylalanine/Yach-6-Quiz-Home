@@ -42,18 +42,6 @@ if (!congratsMessage) {
   document.getElementById("gameScreen").appendChild(congratsMessage);
 }
 
-// Remove Level Select Buttons except Level 1
-document.querySelectorAll(".level-select").forEach(button => {
-  if (button.textContent.trim() === "Level 1") {
-    button.addEventListener("click", () => {
-      selectLevel(1);
-    });
-    button.style.display = "inline-block";
-  } else {
-    button.style.display = "none";
-  }
-});
-
 // Start button listener
 startBtn.addEventListener("click", () => {
   document.getElementById("startScreen").style.display = "none";
@@ -89,18 +77,6 @@ function flashWrongKey() {
   setTimeout(() => {
     letterDisplay.classList.remove("flash-wrong");
   }, 200);
-}
-
-function selectLevel(level) {
-  currentLevel = 1;
-  startBtn.disabled = false;
-  // Highlight selected button
-  const buttons = document.querySelectorAll(".level-select");
-  buttons.forEach(btn => btn.classList.remove("selected"));
-  const selectedButton = buttons[0]; // Only Level 1
-  if (selectedButton) {
-    selectedButton.classList.add("selected");
-  }
 }
 
 function startGame(levelNumber) {
