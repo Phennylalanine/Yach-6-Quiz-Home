@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const IMG_BASE = "./monster_image/";
 
   // === CONFIGURATION ===
-  const LEVELS = { EGG: 5, SLIME: 10, EVO2: 20 }; // thresholds
+  const LEVELS = { EGG: 6, SLIME: 15, EVO2: 30 }; // thresholds
   const IMAGE_NAMES = {
     shadowPlantEgg: "ヤミタマ",
     plantSlime_1: "ハナゴロ",
@@ -35,7 +35,7 @@ window.addEventListener("DOMContentLoaded", () => {
     "placesMlevelr",
     "oppositeMlevelr",
     "schoolEventMlevelr",
-  ].map((key) => ({ key, multiplier: key.includes("M") ? 1 : 0.75 }));
+  ].map((key) => ({ key, multiplier: key.includes("M") ? 1.25 : 1 }));
 
   // === LOCAL STORAGE HELPERS ===
   const LS = {
