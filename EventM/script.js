@@ -224,6 +224,7 @@ window.addEventListener("DOMContentLoaded", () => {
   function saveProgress() {
     localStorage.setItem("eventMxpr", xp);
     localStorage.setItem("eventMlevelr", level);
+     window.checkEvolutionNotification();
   }
 
   function loadProgress() {

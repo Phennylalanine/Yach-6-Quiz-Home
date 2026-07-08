@@ -238,6 +238,7 @@ window.addEventListener("DOMContentLoaded", () => {
   function saveProgress() {
     localStorage.setItem("buildingSxpr", xp);
     localStorage.setItem("buildingSlevelr", level);
+    window.checkEvolutionNotification();
   }
 
   function loadProgress() {
