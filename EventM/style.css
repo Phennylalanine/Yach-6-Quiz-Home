@@ -62,6 +62,7 @@ button:disabled {
 
 #choicesText button:hover {
   background-color: #4CAF50;
+  font-size: 1.5em;
   color: white;
 }
 
