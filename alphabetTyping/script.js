@@ -8,7 +8,7 @@ let score = 0;
 let combo = 0;
 let answered = false;
 
-const maxPoints = 35;  // <--- NEW: End game at 100 points
+const maxPoints = 52;  // <--- NEW: End game at 100 points
 
 const maxComboForBonus = 5;
 
